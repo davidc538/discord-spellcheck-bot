@@ -20,7 +20,7 @@ namespace DiscordBot
 
         private string StripPunctuation(string text)
         {
-            StringBuilder retVal =new StringBuilder();
+            StringBuilder retVal = new StringBuilder();
 
             foreach (char c in text)
             {
@@ -55,6 +55,7 @@ namespace DiscordBot
             {
                 if (e.Message.User.IsBot) return;
 
+                // remove punctuation
                 string s_message = Regex.Replace(e.Message.Text, @"\p{Cs}", "");
 
                 s_message = StripPunctuation(s_message);
@@ -100,12 +101,11 @@ namespace DiscordBot
                 }
             };
 
-            var token = File.ReadAllText("discord_token.token");
+            //var token = File.ReadAllText("discord_token.token");
+            var token = "MzA5MDczNDg2MTM4MDQ4NTEz.DBO_Mw.7971OIODXT - 0yv - 68MnGqZtTsrI";
 
-            var eService = _client.GetService<CommandService>();
+                var eService = _client.GetService<CommandService>();
 
-            eService.CreateCommand("ping").Description("returns pong").Do(async (e) => { await e.Channel.SendMessage("pong"); });
-            
             _client.ExecuteAndWait(async () => { await _client.Connect(token, TokenType.Bot); });
         }
     }
